@@ -1,0 +1,29 @@
+/**
+ * Prisma ?emas? `env("DATABASE_URL")` bekler; de?i?ken yoksa `prisma generate`
+ * do?rulamada hata verir. `generate` veritaban?na ba?lanmaz; yaln?zca istemci üretir.
+ * Bu betik, DATABASE_URL yoksa geçerli biçimde bir yer tutucu atar.
+ * Üretim veya gerçek DB i?lemleri için .env veya Vercel'de DATABASE_URL tan?mlay?n.
+ */
+const { spawnSync } = require("child_process");
+const path = require("path");
+
+const FALLBACK =
+  "postgresql://postgres:postgres@127.0.0.1:5432/doctor_clinic?schema=public";
+
+if (!process.env.DATABASE_URL || String(process.env.DATABASE_URL).trim() === "") {
+  process.env.DATABASE_URL = FALLBACK;
+  // eslint-disable-next-line no-console -- kullan?c?ya tek seferlik bilgi
+  console.warn(
+    "[prisma] DATABASE_URL tan?ml? de?il; yaln?zca `prisma generate` için yer tutucu kullan?l?yor. " +
+      "Gerçek veritaban? için proje kökünde `.env` olu?turup `.env.example` dosyas?na bak?n veya Vercel Environment Variables ekleyin."
+  );
+}
+
+const prismaCli = path.join(__dirname, "..", "node_modules", "prisma", "build", "index.js");
+const result = spawnSync(process.execPath, [prismaCli, "generate"], {
+  stdio: "inherit",
+  env: process.env,
+  cwd: path.join(__dirname, ".."),
+});
+
+process.exit(result.status === null ? 1 : result.status);
