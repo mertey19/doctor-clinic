@@ -1,0 +1,116 @@
+/**
+ * Plain CSS (no @tailwind). If the main bundle is stale or CSS fails to load,
+ * the header still lays out with gaps instead of concatenated link text.
+ */
+header[data-site-header] {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid rgba(212, 222, 232, 0.9);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+header[data-site-header] > div[data-site-header-inner] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  width: 100%;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  min-height: 4rem;
+}
+
+header[data-site-header] a[data-site-logo] {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+header[data-site-header] nav[data-desktop-nav] {
+  display: none;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+@media (min-width: 768px) {
+  header[data-site-header] nav[data-desktop-nav] {
+    display: flex;
+  }
+}
+
+header[data-site-header] nav[data-desktop-nav] a {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+header[data-site-header] [data-header-cta] {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  header[data-site-header] [data-header-cta] {
+    display: block;
+  }
+}
+
+header[data-site-header] button[data-menu-toggle] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  header[data-site-header] button[data-menu-toggle] {
+    display: none;
+  }
+}
+
+header[data-site-header] [data-mobile-nav-panel] {
+  border-top: 1px solid #d4dee8;
+  background: #fff;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  header[data-site-header] [data-mobile-nav-panel] {
+    display: none !important;
+  }
+}
+
+header[data-site-header] [data-mobile-nav-panel] nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+header[data-site-header] [data-mobile-nav-panel] nav a {
+  display: block;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+div[data-home-hero-nameplate] {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}

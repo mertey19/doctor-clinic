@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model DoctorProfile {
+  id          String   @id @default(cuid())
+  slug        String   @unique @default("main")
+  title       String
+  fullName    String
+  credentials String?
+  bio         String   @db.Text
+  specialty   String
+  photoUrl    String?
+  phone       String?
+  email       String?
+  address     String?
+  yearsExp    Int?
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  summary     String
+  description String        @db.Text
+  iconKey     String?
+  durationMin Int?
+  priceNote   String?
+  order       Int           @default(0)
+  published   Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  appointments Appointment[]
+}
+
+model BlogCategory {
+  id    String     @id @default(cuid())
+  slug  String     @unique
+  name  String
+  posts BlogPost[]
+}
+
+model BlogPost {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  title       String
+  excerpt     String
+  content     String         @db.Text
+  coverImage  String?
+  published   Boolean        @default(false)
+  publishedAt DateTime?
+  categoryId  String?
+  category    BlogCategory?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  quote     String   @db.Text
+  rating    Int      @default(5)
+  photoUrl  String?
+  published Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Appointment {
+  id          String            @id @default(cuid())
+  patientName String
+  email       String
+  phone       String
+  reason      String?
+  notes       String?           @db.Text
+  preferredAt DateTime
+  status      AppointmentStatus @default(PENDING)
+  serviceId   String?
+  service     Service?          @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
