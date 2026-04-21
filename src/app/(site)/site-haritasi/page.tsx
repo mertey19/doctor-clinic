@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
-import { ArrowUpRight, Compass, House, Info, Phone, Stethoscope } from "lucide-react";
+import { ArrowUpRight, Compass, Cookie, FileText, House, Info, Phone, Shield, Stethoscope } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
 
 export const metadata = { title: "Site haritas\u0131" };
@@ -29,6 +29,24 @@ const pages: { href: string; label: string; description: string; icon: LucideIco
     label: "\u0130leti\u015fim",
     description: "Klinik adresi, telefon bilgisi ve \u00e7al\u0131\u015fma saatleri.",
     icon: Phone,
+  },
+  {
+    href: "/kvkk",
+    label: "KVKK ayd\u0131nlatma metni",
+    description: "Ki\u015fisel verilerin korunmas\u0131 ve veri sorumlusuna ili\u015fkin bilgilendirme.",
+    icon: Shield,
+  },
+  {
+    href: "/gizlilik",
+    label: "Gizlilik politikas\u0131",
+    description: "Web sitesi ve ziyaret\u00e7i verilerine ili\u015fkin gizlilik ilkeleri.",
+    icon: FileText,
+  },
+  {
+    href: "/cerez-politikasi",
+    label: "\u00c7erez politikas\u0131",
+    description: "\u00c7erez t\u00fcrleri ve tercihleriniz hakk\u0131nda bilgi.",
+    icon: Cookie,
   },
 ];
 

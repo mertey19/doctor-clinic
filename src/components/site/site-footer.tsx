@@ -91,11 +91,28 @@ export function SiteFooter({
             </ul>
           </div>
         </div>
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-[var(--border)] pt-8 text-xs text-[var(--muted-foreground)] sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} {clinicName}. Tüm hakları saklıdır.</p>
-          <p className="max-w-md leading-relaxed">
-            Bu web sitesi yalnızca tanıtım amaçlıdır. Profesyonel tıbbi tavsiyenin yerine geçmez.
-          </p>
+        <div className="mt-12 border-t border-[var(--border)] pt-8">
+          <nav aria-label="Yasal bağlantılar" className="flex flex-wrap gap-x-5 gap-y-2 text-xs">
+            <Link prefetch={false} href="/kvkk" className="text-[var(--muted-foreground)] hover:text-[var(--primary)]">
+              KVKK
+            </Link>
+            <Link prefetch={false} href="/gizlilik" className="text-[var(--muted-foreground)] hover:text-[var(--primary)]">
+              Gizlilik
+            </Link>
+            <Link
+              prefetch={false}
+              href="/cerez-politikasi"
+              className="text-[var(--muted-foreground)] hover:text-[var(--primary)]"
+            >
+              Çerez politikası
+            </Link>
+          </nav>
+          <div className="mt-6 flex flex-col items-start justify-between gap-4 text-xs text-[var(--muted-foreground)] sm:flex-row sm:items-center">
+            <p>© {new Date().getFullYear()} {clinicName}. Tüm hakları saklıdır.</p>
+            <p className="max-w-md leading-relaxed">
+              Bu web sitesi yalnızca tanıtım amaçlıdır. Profesyonel tıbbi tavsiyenin yerine geçmez.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
